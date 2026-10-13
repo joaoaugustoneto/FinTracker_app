@@ -1,104 +1,112 @@
 import React from 'react';
 import {
   ActivityIndicator,
-  // MINHA MODIFICAÇÃO: Importei o 'StyleProp' para tratar corretamente arrays de estilo com condicionais.
-  StyleProp,
   StyleSheet,
   Text,
   TouchableOpacity,
   TouchableOpacityProps,
-  ViewStyle,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { colors, radius, spacing } from '@/theme';
-import type { IconName } from '@/utils/icons';
 
 export interface ButtonProps extends TouchableOpacityProps {
   title: string;
-  variant?: 'primary' | 'secondary' | 'outline' | 'danger';
+  variant?: 'primary' | 'secondary' | 'outline' | 'danger' | 'ghost';
   loading?: boolean;
-  icon?: IconName;
 }
 
 export function Button({
   title,
   variant = 'primary',
   loading = false,
-  icon,
   disabled,
   style,
   ...rest
 }: ButtonProps) {
   const isOutline = variant === 'outline';
+  const isGhost = variant === 'ghost';
   const isSecondary = variant === 'secondary';
-  // MINHA MODIFICAÇÃO: Removi a variável 'const isDanger = variant === 'danger';'
-  // do código original, pois ela não estava a ser lida e gerava um aviso de variável não utilizada.
-
-  // MINHA MODIFICAÇÃO PRINCIPAL: Alterei o tipo de 'ViewStyle[]' para 'StyleProp<ViewStyle>'.
-  // No código original, a expressão '(disabled || loading) && styles.disabled' devolve 'false' quando o botão está ativo.
-  // O tipo 'ViewStyle[]' do TypeScript não aceita o booleano 'false' dentro da lista, mas o 'StyleProp<ViewStyle>'
-  // aceita valores falsos e nulos com segurança sem quebrar o compilador.
-  const containerStyle: StyleProp<ViewStyle> = [
-    styles.container,
-    styles[variant],
-    (disabled || loading) && styles.disabled,
-    style, // MINHA MODIFICAÇÃO: Removi a conversão forçada 'as ViewStyle', pois o StyleProp já aceita a prop style diretamente.
-  ];
-
-  const textColor = isOutline ? colors.primary : isSecondary ? colors.text : '#FFFFFF';
+  const isDanger = variant === 'danger';
 
   return (
     <TouchableOpacity
-      activeOpacity={0.7}
+      style={[
+        styles.button,
+        isSecondary && styles.buttonSecondary,
+        isOutline && styles.buttonOutline,
+        isDanger && styles.buttonDanger,
+        isGhost && styles.buttonGhost,
+        (disabled || loading) && styles.disabled,
+        style,
+      ]}
       disabled={disabled || loading}
-      style={containerStyle}
+      activeOpacity={0.7}
       {...rest}
     >
       {loading ? (
-        <ActivityIndicator color={textColor} size="small" />
+        <ActivityIndicator color={isOutline || isGhost ? colors.primary : '#FFFFFF'} />
       ) : (
-        <>
-          {icon && (
-            <Ionicons name={icon} size={20} color={textColor} style={styles.icon} />
-          )}
-          <Text style={[styles.text, { color: textColor }]}>{title}</Text>
-        </>
+        <Text
+          style={[
+            styles.text,
+            isSecondary && styles.textSecondary,
+            isOutline && styles.textOutline,
+            isDanger && styles.textDanger,
+            isGhost && styles.textGhost,
+          ]}
+        >
+          {title}
+        </Text>
       )}
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: 48,
+  button: {
+    backgroundColor: colors.primary,
     borderRadius: radius.md,
-    flexDirection: 'row',
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.lg,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: spacing.md,
+    minHeight: 48,
   },
-  primary: {
-    backgroundColor: colors.primary,
+  buttonSecondary: {
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
-  secondary: {
-    backgroundColor: colors.primarySoft,
-  },
-  outline: {
+  buttonOutline: {
     backgroundColor: 'transparent',
-    borderWidth: 1.5,
+    borderWidth: 1,
     borderColor: colors.primary,
   },
-  danger: {
+  buttonDanger: {
     backgroundColor: colors.danger,
   },
-  disabled: {
-    opacity: 0.5,
+  buttonGhost: {
+    backgroundColor: 'transparent',
+    elevation: 0,
+    shadowOpacity: 0,
   },
-  icon: {
-    marginRight: spacing.sm,
+  disabled: {
+    opacity: 0.6,
   },
   text: {
+    color: '#FFFFFF',
     fontSize: 16,
     fontWeight: '600',
+  },
+  textSecondary: {
+    color: colors.text,
+  },
+  textOutline: {
+    color: colors.primary,
+  },
+  textDanger: {
+    color: '#FFFFFF',
+  },
+  textGhost: {
+    color: colors.muted,
   },
 });

@@ -48,5 +48,5 @@ export interface BankConnection {
 export interface SyncResult {
   connection_id: string;
   imported: number; // lançamentos novos
-  fetched: number; // lançamentos lidos do banco no periodo
+  fetched: number; // lançamentos lidos do banco no período
 }

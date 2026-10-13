@@ -1,19 +1,15 @@
-import { Controller } from 'react-hook-form';
-import type { Control, FieldValues, Path } from 'react-hook-form';
-import type { TextInputProps } from 'react-native';
-import { Input } from './Input';
+import React from 'react';
+import { Control, Controller, FieldValues, Path } from 'react-hook-form';
+import { Input, InputProps } from './Input';
 
-type FormInputProps<T extends FieldValues> = Omit<
-  TextInputProps,
-  'value' | 'onChangeText' | 'onBlur'
-> & {
+interface FormInputProps<T extends FieldValues> extends Omit<
+  InputProps,
+  'value' | 'onChangeText'
+> {
   control: Control<T>;
   name: Path<T>;
-  label: string;
-  mask?: (text: string) => string;
-};
+}
 
-// Liga o <Input> ao react-hook-form e exibe a mensagem de erro do Zod.
 export function FormInput<T extends FieldValues>({
   control,
   name,
@@ -30,7 +26,10 @@ export function FormInput<T extends FieldValues>({
           {...rest}
           label={label}
           value={String(value ?? '')}
-          onChangeText={(text) => onChange(mask ? mask(text) : text)}
+          onChangeText={(text) => {
+            const formatted = mask ? mask(text) : text;
+            onChange(formatted);
+          }}
           onBlur={onBlur}
           error={error?.message}
         />
