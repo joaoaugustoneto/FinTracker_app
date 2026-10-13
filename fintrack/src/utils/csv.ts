@@ -17,7 +17,7 @@ export function toCsv(transactions: Transaction[]): string {
       cell(t.category?.name ?? ''),
       cell(t.description),
       t.amount.toFixed(2).replace('.', ','),
-    ].join(';')
+    ].join(';'),
   );
   return [header, ...rows].join('\n');
 }

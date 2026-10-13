@@ -21,19 +21,15 @@ describe('parseMoney', () => {
     expect(parseMoney('')).toBeNaN();
     expect(parseMoney('abc')).toBeNaN();
   });
-
 });
 
 describe('formatMoney', () => {
-
   it('formata em reais', () => {
     expect(formatMoney(1234.5).replace(nbsp, ' ')).toBe('R$ 1.234,50');
   });
-
 });
 
 describe('roundMoney / toInputMoney', () => {
-
   it('arredonda para 2 casas', () => {
     expect(roundMoney(0.1 + 0.2)).toBe(0.3);
   });
@@ -41,5 +37,4 @@ describe('roundMoney / toInputMoney', () => {
   it('gera texto de campo com vírgula', () => {
     expect(toInputMoney(1234.5)).toBe('1234,50');
   });
-  
 });

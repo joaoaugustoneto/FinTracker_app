@@ -6,7 +6,6 @@ import { useSaveTransaction } from '@/hooks/useTransactions';
 import { friendlyError } from '@/utils/errors';
 
 export default function NewTransactionScreen() {
-
   const router = useRouter();
   const save = useSaveTransaction();
 

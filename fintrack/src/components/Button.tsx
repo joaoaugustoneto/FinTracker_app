@@ -31,7 +31,7 @@ export function Button({
 }: ButtonProps) {
   const isOutline = variant === 'outline';
   const isSecondary = variant === 'secondary';
-  // MINHA MODIFICAÇÃO: Removi a variável 'const isDanger = variant === 'danger';' 
+  // MINHA MODIFICAÇÃO: Removi a variável 'const isDanger = variant === 'danger';'
   // do código original, pois ela não estava a ser lida e gerava um aviso de variável não utilizada.
 
   // MINHA MODIFICAÇÃO PRINCIPAL: Alterei o tipo de 'ViewStyle[]' para 'StyleProp<ViewStyle>'.
@@ -45,11 +45,7 @@ export function Button({
     style, // MINHA MODIFICAÇÃO: Removi a conversão forçada 'as ViewStyle', pois o StyleProp já aceita a prop style diretamente.
   ];
 
-  const textColor = isOutline
-    ? colors.primary
-    : isSecondary
-      ? colors.text
-      : '#FFFFFF';
+  const textColor = isOutline ? colors.primary : isSecondary ? colors.text : '#FFFFFF';
 
   return (
     <TouchableOpacity
@@ -63,12 +59,7 @@ export function Button({
       ) : (
         <>
           {icon && (
-            <Ionicons
-              name={icon}
-              size={20}
-              color={textColor}
-              style={styles.icon}
-            />
+            <Ionicons name={icon} size={20} color={textColor} style={styles.icon} />
           )}
           <Text style={[styles.text, { color: textColor }]}>{title}</Text>
         </>
