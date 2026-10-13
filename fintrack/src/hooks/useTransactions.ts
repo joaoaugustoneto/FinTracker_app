@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import {
   createTransaction,
   deleteTransaction,
@@ -6,67 +11,53 @@ import {
   listTransactions,
   updateTransaction,
   updateTransactionCategory,
-  type DateRange,
 } from '@/services/transactions';
 import type { TransactionInput } from '@/types';
+import { monthRange, type YearMonth } from '@/utils/date';
 
-export function useTransactions(range?: DateRange) {
+export function useTransactions(month: YearMonth) {
   return useQuery({
-    queryKey: ['transactions', range],
-    queryFn: () => listTransactions(range),
+    queryKey: ['transactions', 'month', month.year, month.month],
+    queryFn: () => listTransactions(monthRange(month)),
+    placeholderData: keepPreviousData,
   });
 }
 
-export function useTransaction(id: string) {
+export function useTransaction(id: string | undefined) {
   return useQuery({
-    queryKey: ['transactions', id],
-    queryFn: () => getTransaction(id),
+    queryKey: ['transactions', 'detail', id],
+    queryFn: () => getTransaction(id as string),
     enabled: Boolean(id),
   });
 }
 
-export function useCreateTransaction() {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: (input: TransactionInput) => createTransaction(input),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['transactions'] });
-    },
-  });
+interface SaveVariables {
+  id?: string;
+  input: TransactionInput;
 }
 
-export function useUpdateTransaction() {
+export function useSaveTransaction() {
   const queryClient = useQueryClient();
-
   return useMutation({
-    mutationFn: ({ id, input }: { id: string; input: TransactionInput }) =>
-      updateTransaction(id, input),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['transactions'] });
-    },
+    mutationFn: ({ id, input }: SaveVariables) =>
+      id ? updateTransaction(id, input) : createTransaction(input),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['transactions'] }),
   });
 }
 
 export function useDeleteTransaction() {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: (id: string) => deleteTransaction(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['transactions'] });
-    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['transactions'] }),
   });
 }
 
-export function useUpdateTransactionCategory() {
+export function useRecategorizeTransaction() {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: ({ id, categoryId }: { id: string; categoryId: string }) =>
       updateTransactionCategory(id, categoryId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['transactions'] });
-    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['transactions'] }),
   });
 }
