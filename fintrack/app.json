@@ -1,12 +1,17 @@
 {
   "expo": {
-    "name": "fintrack",
-    "slug": "fintrack",
-    "scheme": "fintrack",
+    "name": "SmartPig",
+    "slug": "smartpig",
+    "scheme": "smartpig",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFFFFF"
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "br.edu.iesb.joao.fintrack"
@@ -14,7 +19,7 @@
     "android": {
       "package": "br.edu.iesb.joao.fintrack",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#FFFFFF",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"

@@ -5,9 +5,11 @@ import { colors } from '@/theme';
 import type { IconName } from '@/utils/icons';
 
 function tabIcon(name: IconName) {
-  return ({ color, size }: { color: ColorValue; size: number }) => (
+  const TabBarIcon = ({ color, size }: { color: ColorValue; size: number }) => (
     <Ionicons name={name} size={size} color={color} />
   );
+  TabBarIcon.displayName = `TabIcon_${name}`;
+  return TabBarIcon;
 }
 
 export default function TabsLayout() {

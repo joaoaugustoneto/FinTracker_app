@@ -82,7 +82,7 @@ export default function ProfileScreen() {
       <Button title="Sair da conta" variant="danger" onPress={confirmSignOut} />
 
       <Text style={styles.version}>
-        FinTrack v{Constants.expoConfig?.version ?? '1.0.0'}
+        SmartPig v{Constants.expoConfig?.version ?? '1.0.0'}
       </Text>
     </Screen>
   );

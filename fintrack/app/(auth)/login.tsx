@@ -1,9 +1,8 @@
-import { Ionicons } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from 'expo-router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { Button } from '@/components/Button';
 import { FormInput } from '@/components/FormInput';
 import { Screen } from '@/components/Screen';
@@ -39,8 +38,12 @@ export default function LoginScreen() {
   return (
     <Screen scroll>
       <View style={styles.header}>
-        <Ionicons name="wallet" size={56} color={colors.primary} />
-        <Text style={styles.title}>FinTrack</Text>
+        <Image
+          source={require('../../assets/logo.png')}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+        <Text style={styles.title}>SmartPig</Text>
         <Text style={styles.subtitle}>Suas finanças sob controle</Text>
       </View>
 
@@ -76,7 +79,8 @@ export default function LoginScreen() {
 
 const styles = StyleSheet.create({
   header: { alignItems: 'center', marginTop: spacing.xl, marginBottom: spacing.xl },
-  title: { fontSize: 32, fontWeight: '800', color: colors.text, marginTop: spacing.sm },
+  logo: { width: 90, height: 90, marginBottom: spacing.xs },
+  title: { fontSize: 32, fontWeight: '800', color: colors.text, marginTop: spacing.xs },
   subtitle: { fontSize: 15, color: colors.muted, marginTop: 4 },
   error: { color: colors.danger, marginBottom: spacing.md, textAlign: 'center' },
   link: { marginTop: spacing.lg, textAlign: 'center', color: colors.muted, fontSize: 15 },
