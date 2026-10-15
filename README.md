@@ -30,9 +30,9 @@ React Native · Expo · Expo Router · TypeScript · Supabase (Auth, Postgres, R
 
 ## Instale no seu dispositivo
 
-https://expo.dev/accounts/joaoaeneto/projects/smartpig/builds/5e0ea643-94a8-4853-96c9-ffeec6345a0e
+[SmartPig no Expo](https://expo.dev/accounts/joaoaeneto/projects/smartpig/builds/5e0ea643-94a8-4853-96c9-ffeec6345a0e)
 
-![QrCode](image.png)
+![QR code for the SmartPig Expo install link, displayed as a black and white square matrix intended to be scanned with a phone camera to open the app installation page. The image contains no readable text and is shown against a plain background.](image.png)
 
 ## Como executar
 
