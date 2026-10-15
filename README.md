@@ -28,6 +28,12 @@ React Native · Expo · Expo Router · TypeScript · Supabase (Auth, Postgres, R
 - Uma conta e um projeto no [Supabase](https://supabase.com)
 - [Expo Go](https://expo.dev/go) no celular para executar o aplicativo
 
+## Instale no seu dispositivo
+
+https://expo.dev/accounts/joaoaeneto/projects/smartpig/builds/5e0ea643-94a8-4853-96c9-ffeec6345a0e
+
+![QrCode](image.png)
+
 ## Como executar
 
 1. Na raiz do repositório, entre na pasta do aplicativo e instale as dependências:
